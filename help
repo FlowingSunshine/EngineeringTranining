@@ -1,0 +1,5 @@
+关于Android Studio如何导入BottomNavigationBar项目到自己的Project中
+在Android Studio中新建自己的Application，然后新建Module，选择Import Module，然后选择BottomNavigationBar的项目即可。Android Studio会自动将BottomNavigationBar复制到你的当前Project目录下，并配置相关的依赖。
+
+顺便吐槽下自己的天（智）真（障）：git push -u origin master命令之后为什么老是报错？因为没有按照提示输入"yes"而是直接回车了！！！
+
