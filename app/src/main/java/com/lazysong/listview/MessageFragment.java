@@ -8,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by WangChang on 2016/5/15.
- */
-public class MusicFragment extends Fragment{
+public class MessageFragment extends Fragment{
 
     @Nullable
     @Override
@@ -27,10 +24,10 @@ public class MusicFragment extends Fragment{
         tv.setText(getArguments().getString("ARGS"));
     }
 
-    public static MusicFragment newInstance(String content) {
+    public static MessageFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
-        MusicFragment fragment = new MusicFragment();
+        MessageFragment fragment = new MessageFragment();
         fragment.setArguments(args);
         return fragment;
     }

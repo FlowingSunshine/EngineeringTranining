@@ -1,7 +1,5 @@
 package com.lazysong.listview;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomeFragment extends Fragment {
+public class DiscoverFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,10 +28,9 @@ public class HomeFragment extends Fragment {
         TextView tv = (TextView) getActivity().findViewById(R.id.tv);
         tv.setText(getArguments().getString("ARGS"));
 
-        //自定义ActionBar
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.actionbar_home);
+        actionBar.setCustomView(R.layout.actionbar_discover);
         actionBar.getCustomView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,20 +39,20 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public static HomeFragment newInstance(String content) {
+    public static DiscoverFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
-        HomeFragment fragment = new HomeFragment();
+        DiscoverFragment fragment = new DiscoverFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
    /* @Override
+   //创建OptionMenu
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //创建OptionMenu
         menu.clear();
         MenuInflater menuInflater = getActivity().getMenuInflater();
-        menuInflater.inflate(R.menu.menu_home, menu);
+        menuInflater.inflate(R.menu.menu_discover, menu);
         return;
     }*/
 }
