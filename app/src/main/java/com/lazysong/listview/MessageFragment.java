@@ -3,6 +3,7 @@ package com.lazysong.listview;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,15 @@ public class MessageFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         TextView tv = (TextView) getActivity().findViewById(R.id.tv);
         tv.setText(getArguments().getString("ARGS"));
+        initActionBar();
+    }
+
+    private void initActionBar() {
+        final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(false);
+        actionBar.show();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.actionbar_message);
     }
 
     public static MessageFragment newInstance(String content) {

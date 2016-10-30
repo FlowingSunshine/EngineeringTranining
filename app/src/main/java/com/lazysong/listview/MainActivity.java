@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private ArrayList<Fragment> fragments;
     private Button sendMessage;
     private TextView tvProgress;
+    private android.support.v7.app.ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         fragments = getFragments();
         setDefaultFragment();
         bottomNavigationBar.setTabSelectedListener(this);
+
+        actionBar = getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(false);
     }
 
     /**

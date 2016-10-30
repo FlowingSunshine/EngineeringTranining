@@ -32,6 +32,8 @@ public class HomeFragment extends Fragment {
 
         //自定义ActionBar
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(false);
+        actionBar.show();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.actionbar_home);
         actionBar.getCustomView().setOnClickListener(new View.OnClickListener() {

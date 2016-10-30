@@ -3,6 +3,7 @@ package com.lazysong.listview;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class DiscoverFragment extends Fragment implements View.OnClickListener{
     ViewPager viewPager;
     List<View> viewContainer = new ArrayList<View>();
+    String[] tableTitles = new String[]{"热门", "高校", "类型", "收藏"};
+    TabLayout mTabLayout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +78,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         public int getItemPosition(Object object) {
             return super.getItemPosition(object);
         }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tableTitles[position];
+        }
     };
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -81,26 +90,32 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         TextView tv = (TextView) getActivity().findViewById(R.id.tv);
         tv.setText(getArguments().getString("ARGS"));
 
+        //消除actionBar的显示/隐藏动画，并且隐藏actionBar
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.actionbar_discover);
+        actionBar.setShowHideAnimationEnabled(false);
+        actionBar.hide();
+/*        actionBar.setCustomView(R.layout.actionbar_discover);
         actionBar.getCustomView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "btn_home is clicked", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
-        //点击顶部栏的时候设置滑动效果
-        int ids[] = new int[]{R.id.relayout_popular, R.id.relayout_university, R.id.relayout_type, R.id.relayout_mark};
-        RelativeLayout layout;
-        for(int i = 0; i < viewContainer.size(); i++)
-        {
-            layout = (RelativeLayout) actionBar.getCustomView().findViewById(ids[i]);
-            layout.setOnClickListener(this);
+        mTabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
+        mTabLayout.addTab(mTabLayout.newTab().setText("0"), true);
+        for(int i = 1; i < viewContainer.size(); i++) {
+            mTabLayout.addTab(mTabLayout.newTab());
         }
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+        //将TabLayout和ViewPager关联起来
+        mTabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mTabLayout.setupWithViewPager(viewPager);
+            }
+        });
+        //给Tabs设置适配器
+        mTabLayout.setTabsFromPagerAdapter(pagerAdapter);
     }
 
     public static DiscoverFragment newInstance(String content) {
@@ -127,6 +142,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.relayout_mark:
                 viewPager.setCurrentItem(3);
+                break;
+            default:
                 break;
         }
     }

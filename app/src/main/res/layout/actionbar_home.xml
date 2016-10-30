@@ -31,8 +31,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
-        android:textIsSelectable="false"
-        />
+        android:textIsSelectable="false"/>
 
     <ImageView
         android:id="@+id/btn_notif"

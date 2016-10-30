@@ -27,6 +27,8 @@ public class AccountFragment extends Fragment{
 
     private void initActionBar() {
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(false);
+        actionBar.show();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.actionbar_account);
     }
