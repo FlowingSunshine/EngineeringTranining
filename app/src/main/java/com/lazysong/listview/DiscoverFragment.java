@@ -1,5 +1,6 @@
 package com.lazysong.listview;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,10 +35,12 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         View v1 = layoutInflater.inflate(R.layout.layout_type, null);
         View v2 = layoutInflater.inflate(R.layout.layout_university, null);
         View v3 = layoutInflater.inflate(R.layout.layout_mark, null);
-        viewContainer.add(0, v0);
-        viewContainer.add(1, v1);
-        viewContainer.add(2, v2);
-        viewContainer.add(3, v3);
+        if(viewContainer.isEmpty()) {
+            viewContainer.add(0, v0);
+            viewContainer.add(1, v1);
+            viewContainer.add(2, v2);
+            viewContainer.add(3, v3);
+        }
         viewPager.setAdapter(pagerAdapter);
 
         return view;
@@ -96,6 +99,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
             layout = (RelativeLayout) actionBar.getCustomView().findViewById(ids[i]);
             layout.setOnClickListener(this);
         }
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
     }
 
     public static DiscoverFragment newInstance(String content) {

@@ -13,4 +13,12 @@
 
     <color name="colorPrice">#f94141</color>
     <color name="colorTextInDarkBackground">#f9f9f9</color>
+
+    <color name="ColorActionBarTitleBase">#FFFFFF</color>
+    <color name="ColorListviewBackgroundLight">#ededed</color>
+    <color name="ColorTextGray">#797979</color>
+    <color name="ColorTextLightGray">#ababab</color>
+    <color name="ColorFragmetBackgroundLight">#dddddd</color>
+    <color name="ColorListviewIconBackground">#bababa</color>
+    <color name="ColorFragmetBackgroundDark">#4d4d4d</color>
 </resources>

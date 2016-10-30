@@ -2,4 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="action_bar_title">20sp</dimen>
+    <dimen name="text_account_username">16sp</dimen>
+    <dimen name="text_account_sign">12sp</dimen>
+    <dimen name="height_listview_account">58dp</dimen>
+    <dimen name="height_listview_icon_account">36dp</dimen>
+    <dimen name="width_listview_icon_account">36dp</dimen>
+    <dimen name="size_listview_icon_account">32dp</dimen>
+
+    <dimen name="text_size_actionbar_left">16sp</dimen>
+
 </resources>
