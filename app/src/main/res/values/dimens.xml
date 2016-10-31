@@ -11,5 +11,5 @@
     <dimen name="size_listview_icon_account">32dp</dimen>
 
     <dimen name="text_size_actionbar_left">16sp</dimen>
-
+    <dimen name="text_size_tab_actionbar">18sp</dimen>
 </resources>

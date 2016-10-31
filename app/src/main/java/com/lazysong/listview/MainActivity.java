@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.lazysong.listview.db.DBtest;
 
 import java.util.ArrayList;
 
@@ -47,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
         actionBar = getSupportActionBar();
         actionBar.setShowHideAnimationEnabled(false);
+        initDB();
     }
 
+    void initDB() {
+        DBtest test = new DBtest(MainActivity.this);
+        test.testDB();
+    }
     /**
      * 设置默认的
      */
