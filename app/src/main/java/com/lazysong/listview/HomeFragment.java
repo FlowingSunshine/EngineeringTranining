@@ -15,7 +15,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+
 public class HomeFragment extends Fragment {
+    private TextView tvLocation;
+    private android.support.v7.app.ActionBar actionBar;
+
+    public LocationClient mLocationClient = null;
+    public MyLocationListenner myListener = new MyLocationListenner();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +42,8 @@ public class HomeFragment extends Fragment {
         tv.setText(getArguments().getString("ARGS"));
 
         //自定义ActionBar
-        final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setShowHideAnimationEnabled(false);
         actionBar.show();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -42,6 +54,8 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "btn_home is clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
+        initLocation();
     }
 
     public static HomeFragment newInstance(String content) {
@@ -52,12 +66,43 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-   /* @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //创建OptionMenu
-        menu.clear();
-        MenuInflater menuInflater = getActivity().getMenuInflater();
-        menuInflater.inflate(R.menu.menu_home, menu);
-        return;
-    }*/
+    public void initLocation() {
+        tvLocation = (TextView) actionBar.getCustomView().findViewById(R.id.tv_location);
+        mLocationClient = new LocationClient(getContext());
+        mLocationClient.registerLocationListener(myListener);
+        setLocationOption();
+        mLocationClient.start();
+    }
+
+    private void setLocationOption() {
+        // TODO Auto-generated method stub
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); //打开gps
+        option.setServiceName("com.baidu.location.service_v2.9");
+//        option.setPoiExtraInfo(true);
+        option.setAddrType("all");
+        option.setPriority(LocationClientOption.NetWorkFirst);
+        option.setPriority(LocationClientOption.GpsFirst);       //gps
+//        option.set.setPoiNumber(10);
+        option.disableCache(true);
+        mLocationClient.setLocOption(option);
+    }
+
+    public class MyLocationListenner implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation arg0) {
+            // TODO Auto-generated method stub
+//            String cityname = arg0.getProvince() + arg0.getCity() + arg0.getStreet();
+            String cityname = arg0.getCity();
+//            Toast.makeText(getContext(), cityname, Toast.LENGTH_SHORT).show();
+            if (cityname != null)
+                tvLocation.setText(cityname);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
+    }
 }

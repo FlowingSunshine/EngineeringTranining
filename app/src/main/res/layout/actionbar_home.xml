@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:id="@+id/layout_location"
-        android:layout_width="40dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp">
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             style="@style/TextLeftActionbar"
-            android:text="苏州"/>
+            android:text="上海"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="10dp"
