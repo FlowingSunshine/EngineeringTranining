@@ -1,16 +1,19 @@
 package com.lazysong.listview;
 
+import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lazysong.listview.db.DBtest;
+import com.lazysong.listview.db.DataManager;
 
 import java.util.ArrayList;
 
@@ -50,8 +53,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     void initDB() {
-        DBtest test = new DBtest(MainActivity.this);
-        test.testDB();
+        DataManager dataManager = new DataManager(MainActivity.this);
+        dataManager.loadDatabase();
+        dataManager.closeDB();
     }
     /**
      * 设置默认的

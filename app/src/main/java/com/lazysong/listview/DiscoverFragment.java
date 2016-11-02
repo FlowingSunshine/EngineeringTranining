@@ -87,8 +87,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView tv = (TextView) getActivity().findViewById(R.id.tv);
-        tv.setText(getArguments().getString("ARGS"));
 
         //消除actionBar的显示/隐藏动画，并且隐藏actionBar
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
