@@ -63,6 +63,18 @@ public class HomeFragment extends Fragment {
         });
         tvLocation = (TextView) actionBar.getCustomView().findViewById(R.id.tv_location);
         initLocation();
+        dataManager = new DataManager(getContext());
+        initData();
+        listViewHome = (ListView) getActivity().findViewById(R.id.listview_home);
+        listViewHome.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+    }
+
+    private void initData() {
+//        dataManager.loadDatabase();
+        cursor = dataManager.getActivityCursor();
+        /*while (cursor.moveToNext()) {
+            Log.v("mysqlite", cursor.getString(cursor.getColumnIndex("SUBJECT")) + " " + cursor.getString(cursor.getColumnIndex("PRESENTER")) );
+        }*/
     }
 
     public static HomeFragment newInstance(String content) {

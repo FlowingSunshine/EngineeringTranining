@@ -50,19 +50,22 @@ public class DataManager {
                 "\t1, '数据挖掘技术的应用', \n" +
                 "\t'谢玄洋博士', '中国人民银行高级工程师', \n" +
                 "\tDATETIME('NOW'), '唯真楼小剧场', \n" +
-                "\t1\n" +
+                "\t1, \n" + "1, " +
+                "1000" +
                 ");");
         database.execSQL("INSERT INTO ACTIVITY VALUES (\n" +
                 "\t2, '德意志帝国的崛起', \n" +
                 "\t'李维', '南京大学教授', \n" +
                 "\tDATETIME('NOW'), '唯真楼小剧场', \n" +
-                "\t21\n" +
+                "\t21, \n" + "3, " +
+                "1200" +
                 ");");
         database.execSQL("INSERT INTO ACTIVITY VALUES (\n" +
                 "\t3, '人文精神与社会转型', \n" +
                 "\t'陈平原', '中国人民大学客座教授', \n" +
                 "\tDATETIME('NOW'), '唯真楼小剧场', \n" +
-                "\t3\n" +
+                "\t3, \n" + "3, " +
+                "1000" +
                 ");");
         database.execSQL("INSERT INTO TAG VALUES(\n" +
                 "\t1, '计算机技术', \n" +
@@ -103,7 +106,12 @@ public class DataManager {
         database.execSQL("DELETE FROM TAG;");
         database.execSQL("DELETE FROM ACTIVITY_TAG;");
     }
+    public Cursor getActivityCursor() {
 
+//        Cursor cursor = database.query("institute", new String[]{"institute_no as _id", "institute_name", "institute_type"},null, null, null, null, null );
+        Cursor cursor = database.query("ACTIVITY", new String[]{"ROWID AS _id", "SUBJECT", "PRESENTER", "HOLD_INSTITUTE"},null, null, null, null, null );
+        return  cursor;
+    }
     public void closeDB() {
         database.close();
 
