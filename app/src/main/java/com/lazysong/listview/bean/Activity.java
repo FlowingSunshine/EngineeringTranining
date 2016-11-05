@@ -3,6 +3,7 @@ package com.lazysong.listview.bean;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -16,7 +17,7 @@ import java.util.Date;
 字段名	   PLACE	HOLD_INSTITUTE	   MAIN_TAG	   MARK_COUNT
 类型	string	      int	          int	      int
 * */
-public class Activity {
+public class Activity implements Serializable{
     private int activityNo;
     private String subject;
     private String presenter;

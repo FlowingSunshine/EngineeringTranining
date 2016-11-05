@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/back_notify"
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_location_select"/>
+
+    <TextView
+        android:id="@+id/tv_notify"
+        android:hint="通知"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/back_notify"/>
+
+</RelativeLayout>

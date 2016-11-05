@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 Fragment fragment = fragments.get(position);
                 ft.remove(fragment);
                 ft.commitAllowingStateLoss();
+                Toast.makeText(this, "onTabUnselected() is called ", Toast.LENGTH_SHORT).show();
             }
         }
     }

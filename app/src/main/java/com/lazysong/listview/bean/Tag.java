@@ -1,5 +1,7 @@
 package com.lazysong.listview.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by lazysong on 2016/11/2.
  */
@@ -12,7 +14,7 @@ INTEGER
 VARCHAR(100)
 
 * */
-public class Tag {
+public class Tag implements Serializable{
     int tagNo;
     String tagName;
 

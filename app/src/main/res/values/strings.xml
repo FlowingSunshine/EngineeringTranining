@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Listview</string>
+    <string name="detail">活动详情</string>
+    <string name="title_activity_sys_notify">SysNotifyActivity</string>
 </resources>

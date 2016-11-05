@@ -6,7 +6,12 @@
     android:orientation="vertical"
     tools:context="com.lazysong.listview.MainActivity">
 
-    <FrameLayout
+    <!--<FrameLayout
+        android:id="@+id/layFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />-->
+    <RelativeLayout
         android:id="@+id/layFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"

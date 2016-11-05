@@ -3,6 +3,7 @@ package com.lazysong.listview;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import com.lazysong.listview.db.DataManager;
 public class HomeFragment extends Fragment {
     private TextView tvLocation;
     private android.support.v7.app.ActionBar actionBar;
+    private ImageView notifyButton;
 
     private ListView listViewHome;
 
@@ -38,6 +41,7 @@ public class HomeFragment extends Fragment {
     private String cityname;
     private DataManager dataManager;
     private Cursor cursor;
+    private MyCursorAdapter cursorAdapter;
 
     @Nullable
     @Override
@@ -59,7 +63,7 @@ public class HomeFragment extends Fragment {
         actionBar.getCustomView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "btn_home is clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "btn_home is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         tvLocation = (TextView) actionBar.getCustomView().findViewById(R.id.tv_location);
@@ -67,11 +71,24 @@ public class HomeFragment extends Fragment {
         dataManager = new DataManager(getContext());
         initData();
         listViewHome = (ListView) getActivity().findViewById(R.id.listview_home);
-        listViewHome.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+        cursorAdapter = new MyCursorAdapter(getContext(), cursor, true);
+        listViewHome.setAdapter(cursorAdapter);
         listViewHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "markCount = " + ((com.lazysong.listview.bean.Activity)view.getTag(R.id.activity)).getSubject(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CheckActivityInfoActivity.class);
+                intent.putExtra("activity", (com.lazysong.listview.bean.Activity)view.getTag(R.id.activity));
+                startActivity(intent);
+            }
+        });
+        notifyButton = (ImageView) getActivity().findViewById(R.id.btn_notif);
+        notifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), SysNotifyActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -131,7 +148,7 @@ public class HomeFragment extends Fragment {
 //            String cityname = arg0.getProvince() + arg0.getCity() + arg0.getStreet();
             Log.v("fragment", "onReceiveLocation() is called");
             cityname = arg0.getCity();
-            Toast.makeText(getContext(), cityname, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), cityname, Toast.LENGTH_SHORT).show();
             if (cityname != null)
                 tvLocation.setText(cityname);
         }

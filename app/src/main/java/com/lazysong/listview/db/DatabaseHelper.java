@@ -39,6 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_NO), " +
             "FOREIGN KEY (TAG_NO) REFERENCES TAG(TAG_NO)" +
             ");";
+
+    private final String CREATE_TABLE_MARK = "CREATE TABLE MARK(\n" +
+            "\tUSER_ID INTEGER, ACTIVITY_NO INTEGER, \n" +
+            "\tPRIMARY KEY (USER_ID, ACTIVITY_NO),\n" +
+            "\tFOREIGN KEY (USER_ID) REFERENCES USER(USER_ID), \n" +
+            "\tFOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_NO)\n" +
+            ");";
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -52,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_ACTIVITY);
             db.execSQL(CREATE_TABLE_TAG);
             db.execSQL(CREATE_TABLE_ACTIVITY_TAG);
+            db.execSQL(CREATE_TABLE_MARK);
         } catch (Exception e) {
             e.printStackTrace();
         }

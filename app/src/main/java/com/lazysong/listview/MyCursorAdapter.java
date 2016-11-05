@@ -94,13 +94,13 @@ public class MyCursorAdapter extends CursorAdapter {
         holder.markCount = (TextView) view.findViewById(R.id.markCount_home);
 
 //        holder.tagImg.setBackground();
-        holder.tagName.setText(activity.getMainTag().getTagName());
-        holder.subject.setText(activity.getSubject());
-        holder.presenter.setText(activity.getPresenter());
-        holder.time.setText(activity.getTime().toString());
-        holder.place.setText(activity.getPlace());
-        holder.hold_institute.setText(activity.getHoldInstitute().getInstituteName());
-        holder.markCount.setText(activity.getMarkCount() + "");
+        holder.tagName.setText("来自分类：" + activity.getMainTag().getTagName());
+        holder.subject.setText("主题：" + activity.getSubject());
+        holder.presenter.setText("主讲人：" + activity.getPresenter());
+        holder.time.setText("时间：" + df.format(activity.getTime()));
+        holder.place.setText("地点：" + activity.getPlace());
+        holder.hold_institute.setText("举办机构：" + activity.getHoldInstitute().getInstituteName());
+        holder.markCount.setText(activity.getMarkCount() + "人想参加");
         view.setTag(R.id.activity, activity);
     }
 

@@ -1,6 +1,9 @@
 package com.lazysong.listview.bean;
 
 import android.graphics.Bitmap;
+import android.widget.SectionIndexer;
+
+import java.io.Serializable;
 
 /**
  * Created by lazysong on 2016/11/2.
@@ -19,7 +22,7 @@ import android.graphics.Bitmap;
 约束	NULL	NULL	NULL
 举例		“18363738888”	“233@qq.com”
 * */
-public class User {
+public class User implements Serializable{
     private String userID;
     private String userName;
     private int sex;

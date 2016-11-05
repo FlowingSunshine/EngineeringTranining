@@ -2,6 +2,8 @@ package com.lazysong.listview.bean;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by lazysong on 2016/11/2.
  */
@@ -10,7 +12,7 @@ import android.graphics.Bitmap;
 字段名	INSTITUTE_NO	INSTITUTE_NAME	INSTITUTE_TYPE	IMG	DESCRIPTION
 类型	INTEGER	VARCHAR(100)	INT	BLOB	TEXT
 * */
-public class Institute {
+public class Institute implements Serializable{
     private int instituteNo;
     String instituteName;
     int instituteType;
