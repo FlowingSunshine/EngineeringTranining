@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,12 @@ public class HomeFragment extends Fragment {
         initData();
         listViewHome = (ListView) getActivity().findViewById(R.id.listview_home);
         listViewHome.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+        listViewHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "markCount = " + ((com.lazysong.listview.bean.Activity)view.getTag(R.id.activity)).getSubject(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initData() {

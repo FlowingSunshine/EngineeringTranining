@@ -12,6 +12,10 @@ public class DataManager {
     private Context context;
     private DatabaseHelper helper;
     private SQLiteDatabase database;
+    private final String SQL_SELECT_ACTIVITY_AND_TAG =
+            "SELECT ACTIVITY.ROWID AS _id, * FROM ACTIVITY, TAG, INSTITUTE " +
+            "WHERE ACTIVITY.HOLD_INSTITUTE = INSTITUTE.INSTITUTE_NO " +
+            "AND ACTIVITY.MAIN_TAG = TAG.TAG_NO;";
 
     public DataManager(Context context) {
         this.context = context;
@@ -57,7 +61,7 @@ public class DataManager {
                 "\t2, '德意志帝国的崛起', \n" +
                 "\t'李维', '南京大学教授', \n" +
                 "\tDATETIME('NOW'), '唯真楼小剧场', \n" +
-                "\t21, \n" + "3, " +
+                "\t3, \n" + "3, " +
                 "1200" +
                 ");");
         database.execSQL("INSERT INTO ACTIVITY VALUES (\n" +
@@ -108,8 +112,9 @@ public class DataManager {
     }
     public Cursor getActivityCursor() {
 
-//        Cursor cursor = database.query("institute", new String[]{"institute_no as _id", "institute_name", "institute_type"},null, null, null, null, null );
-        Cursor cursor = database.query("ACTIVITY", new String[]{"ROWID AS _id", "SUBJECT", "PRESENTER", "HOLD_INSTITUTE"},null, null, null, null, null );
+//        Cursor cursor = database.query("ACTIVITY", new String[]{"ROWID AS _id", "SUBJECT", "PRESENTER", "HOLD_INSTITUTE"},null, null, null, null, null );
+//        Cursor cursor = database.rawQuery("SELECT ROWID AS _id, SUBJECT, PRESENTER, HOLD_INSTITUTE FROM ACTIVITY;", new String[]{});
+        Cursor cursor = database.rawQuery(SQL_SELECT_ACTIVITY_AND_TAG, new String[]{});
         return  cursor;
     }
     public void closeDB() {

@@ -16,6 +16,9 @@ public class Tag {
     int tagNo;
     String tagName;
 
+    public Tag() {
+
+    }
     public Tag(int tagNo, String tagName) {
         this.tagNo = tagNo;
         this.tagName = tagName;

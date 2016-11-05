@@ -1,6 +1,10 @@
 package com.lazysong.listview.bean;
 
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
+
+import java.util.Date;
+
 
 /**
  * Created by lazysong on 2016/11/2.
@@ -16,14 +20,14 @@ public class Activity {
     private int activityNo;
     private String subject;
     private String presenter;
-    private String time;
+    private Date time;
     private String presenterInfo;
     private String place;
-    private int holdInstitute;
-    private int mainTag;
+    private Institute holdInstitute;
+    private Tag mainTag;
     private int markCount;
 
-    public Activity(int activityNo, String subject, String presenter, String time, String presenterInfo, String place, int holdInstitute, int mainTag, int markCount) {
+    public Activity(int activityNo, String subject, String presenter, Date time, String presenterInfo, String place, Institute holdInstitute, Tag mainTag, int markCount) {
         this.activityNo = activityNo;
         this.subject = subject;
         this.presenter = presenter;
@@ -33,6 +37,9 @@ public class Activity {
         this.holdInstitute = holdInstitute;
         this.mainTag = mainTag;
         this.markCount = markCount;
+    }
+    public Activity() {
+
     }
 
     public int getActivityNo() {
@@ -59,11 +66,11 @@ public class Activity {
         this.presenter = presenter;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -83,19 +90,19 @@ public class Activity {
         this.place = place;
     }
 
-    public int getHoldInstitute() {
+    public Institute getHoldInstitute() {
         return holdInstitute;
     }
 
-    public void setHoldInstitute(int holdInstitute) {
+    public void setHoldInstitute(Institute holdInstitute) {
         this.holdInstitute = holdInstitute;
     }
 
-    public int getMainTag() {
+    public Tag getMainTag() {
         return mainTag;
     }
 
-    public void setMainTag(int mainTag) {
+    public void setMainTag(Tag mainTag) {
         this.mainTag = mainTag;
     }
 

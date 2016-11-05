@@ -22,5 +22,9 @@
     <style name="ActionBarTabText">
         <item name="android:textSize">@dimen/text_size_tab_actionbar</item>
     </style>
+    <style name="TagName">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/ColorTextLightGray</item>
+    </style>
 
 </resources>

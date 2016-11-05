@@ -2,21 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/main_tag_img"
+            android:layout_width="@dimen/img_size_tag"
+            android:layout_height="@dimen/img_size_tag"
+            android:src="@drawable/main_tag_img"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:id="@+id/main_tag_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_tag_img"
+            android:text="计算机技术"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            style="@style/TagName"/>
+    </RelativeLayout>
+    <!--public ImageView tagImg;
+        public TextView tagName;
+        public TextView subject;
+        public TextView presenter;
+        public TextView time;
+        public TextView place;
+        public TextView hold_institute;
+        public TextView markCount;-->
     <TextView
         android:id="@+id/subject_home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
     <TextView
         android:id="@+id/presenter_home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/hosted_institute_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
     <TextView
         android:id="@+id/time_home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/place_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/hosted_institute_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/markCount_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

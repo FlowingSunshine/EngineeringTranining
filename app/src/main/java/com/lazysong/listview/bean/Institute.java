@@ -14,14 +14,18 @@ public class Institute {
     private int instituteNo;
     String instituteName;
     int instituteType;
-    Bitmap blob;
+    Bitmap img;
     String description;
 
-    public Institute(int instituteNo, String instituteName, int instituteType, Bitmap blob, String description) {
+    public Institute() {
+
+    }
+
+    public Institute(int instituteNo, String instituteName, int instituteType, Bitmap img, String description) {
         this.instituteNo = instituteNo;
         this.instituteName = instituteName;
         this.instituteType = instituteType;
-        this.blob = blob;
+        this.img = img;
         this.description = description;
     }
 
@@ -49,12 +53,12 @@ public class Institute {
         this.instituteType = instituteType;
     }
 
-    public Bitmap getBlob() {
-        return blob;
+    public Bitmap getImg() {
+        return img;
     }
 
-    public void setBlob(Bitmap blob) {
-        this.blob = blob;
+    public void setImg(Bitmap img) {
+        this.img = img;
     }
 
     public String getDescription() {
