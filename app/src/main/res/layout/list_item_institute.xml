@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/institute_img"
+            android:layout_width="@dimen/img_size_tag"
+            android:layout_height="@dimen/img_size_tag"
+            android:src="@drawable/main_tag_img"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:id="@+id/institute_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/institute_img"
+            android:text="中国科学技术大学"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            style="@style/TagName"/>
+    </RelativeLayout>
+
+</LinearLayout>

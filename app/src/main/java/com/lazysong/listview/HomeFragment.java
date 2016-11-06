@@ -94,11 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() {
-//        dataManager.loadDatabase();
         cursor = dataManager.getActivityCursor();
-        /*while (cursor.moveToNext()) {
-            Log.v("mysqlite", cursor.getString(cursor.getColumnIndex("SUBJECT")) + " " + cursor.getString(cursor.getColumnIndex("PRESENTER")) );
-        }*/
     }
 
     public static HomeFragment newInstance(String content) {
@@ -133,22 +129,12 @@ public class HomeFragment extends Fragment {
         mLocationClient.setLocOption(option);
     }
 
-    @Override
-    public void onResume() {
-//        Log.v("fragment", "onResume() is called in HomeFragment");
-        super.onResume();
-//        if(!mLocationClient.isStarted())
-//            mLocationClient.start();
-    }
-
     public class MyLocationListenner implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation arg0) {
             // TODO Auto-generated method stub
-//            String cityname = arg0.getProvince() + arg0.getCity() + arg0.getStreet();
             Log.v("fragment", "onReceiveLocation() is called");
             cityname = arg0.getCity();
-//            Toast.makeText(getContext(), cityname, Toast.LENGTH_SHORT).show();
             if (cityname != null)
                 tvLocation.setText(cityname);
         }

@@ -1,9 +1,7 @@
-package com.lazysong.listview;
+package com.lazysong.listview.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lazysong.listview.R;
 import com.lazysong.listview.bean.Activity;
 import com.lazysong.listview.bean.Institute;
 import com.lazysong.listview.bean.Tag;
@@ -68,7 +67,7 @@ public class MyCursorAdapter extends CursorAdapter {
         activity.setMarkCount(cursor.getInt(cursor.getColumnIndex("MARK_COUNT")));
         tag.setTagNo(cursor.getInt(cursor.getColumnIndex("TAG_NO")));
         tag.setTagName(cursor.getString(cursor.getColumnIndex("TAG_NAME")));
-//        byte[] image = cursor.getBlob(cursor.getColumnIndex("IMG"));
+        byte[] image = cursor.getBlob(cursor.getColumnIndex("IMG"));
         institute.setInstituteNo(cursor.getInt(cursor.getColumnIndex("INSTITUTE_NO")));
         institute.setInstituteName(cursor.getString(cursor.getColumnIndex("INSTITUTE_NAME")));
         institute.setInstituteType(cursor.getInt(cursor.getColumnIndex("INSTITUTE_TYPE")));

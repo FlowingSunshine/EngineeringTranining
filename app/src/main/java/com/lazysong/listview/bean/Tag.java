@@ -1,5 +1,7 @@
 package com.lazysong.listview.bean;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -15,15 +17,18 @@ VARCHAR(100)
 
 * */
 public class Tag implements Serializable{
-    int tagNo;
-    String tagName;
+    private int tagNo;
+    private String tagName;
+    private Bitmap img;
 
     public Tag() {
 
     }
-    public Tag(int tagNo, String tagName) {
+
+    public Tag(int tagNo, String tagName, Bitmap img) {
         this.tagNo = tagNo;
         this.tagName = tagName;
+        this.img = img;
     }
 
     public int getTagNo() {
@@ -40,5 +45,13 @@ public class Tag implements Serializable{
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+
+    public Bitmap getImg() {
+        return img;
+    }
+
+    public void setImg(Bitmap img) {
+        this.img = img;
     }
 }

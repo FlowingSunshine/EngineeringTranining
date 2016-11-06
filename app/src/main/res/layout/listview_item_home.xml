@@ -22,14 +22,7 @@
             android:layout_marginLeft="20dp"
             style="@style/TagName"/>
     </RelativeLayout>
-    <!--public ImageView tagImg;
-        public TextView tagName;
-        public TextView subject;
-        public TextView presenter;
-        public TextView time;
-        public TextView place;
-        public TextView hold_institute;
-        public TextView markCount;-->
+
     <TextView
         android:id="@+id/subject_home"
         android:layout_width="wrap_content"

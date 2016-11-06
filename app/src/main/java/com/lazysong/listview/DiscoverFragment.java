@@ -1,6 +1,9 @@
 package com.lazysong.listview;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -14,11 +17,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lazysong.listview.adapter.InstituteCusroAdapter;
+import com.lazysong.listview.adapter.TagCursorAdapter;
+import com.lazysong.listview.bean.Activity;
+import com.lazysong.listview.bean.Institute;
+import com.lazysong.listview.bean.Tag;
+import com.lazysong.listview.db.DataManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +40,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
     private String[] tableTitles = new String[]{"热门", "高校", "类型", "收藏"};
     private TabLayout mTabLayout;
     private ListView listviewPopular;
+    private ListView listviewInstitute;
+    private ListView listviewType;
+    private ListView listviewMark;
 
     @Nullable
     @Override
@@ -39,10 +53,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
  
         LayoutInflater layoutInflater = getLayoutInflater(null);
         View v0 = layoutInflater.inflate(R.layout.layout_popular, null);
-        initPopular(v0);
-        View v1 = layoutInflater.inflate(R.layout.layout_type, null);
-        View v2 = layoutInflater.inflate(R.layout.layout_university, null);
+        initPopularTab(v0);
+        View v1 = layoutInflater.inflate(R.layout.layout_university, null);
+        initInstituteTab(v1);
+        View v2 = layoutInflater.inflate(R.layout.layout_type, null);
+        initTypeTab(v2);
         View v3 = layoutInflater.inflate(R.layout.layout_mark, null);
+        initMark(v3);
         if(viewContainer.isEmpty()) {
             viewContainer.add(0, v0);
             viewContainer.add(1, v1);
@@ -54,9 +71,74 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    private void initPopular(View v) {
+    private void initPopularTab(View v) {
         listviewPopular = (ListView) v.findViewById(R.id.listview_popular);
-        
+        DataManager manager = new DataManager(getContext());
+        Cursor cursor = manager.getPopularActivity();
+        listviewPopular.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+        listviewPopular.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Activity activity = (Activity) view.getTag(R.id.activity);
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CheckActivityInfoActivity.class);
+                intent.putExtra("activity", activity);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initInstituteTab(View v) {
+        listviewInstitute = (ListView) v.findViewById(R.id.listview_university);
+        DataManager manager = new DataManager(getContext());
+        Cursor cursor = manager.getAllInstitute();
+        listviewInstitute.setAdapter(new InstituteCusroAdapter(getContext(), cursor, true));
+        listviewInstitute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Institute institute = (Institute) view.getTag(R.id.institute);
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CheckActivityByInstitute.class);
+                intent.putExtra("institute", institute);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initTypeTab(View v) {
+        listviewType = (ListView) v.findViewById(R.id.listview_type);
+        DataManager manager = new DataManager(getContext());
+        Cursor cursor = manager.getAllTags();
+        listviewType.setAdapter(new TagCursorAdapter(getContext(), cursor, true));
+        listviewType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Tag tag = (Tag) view.getTag(R.id.tag);
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CheckActivityByTag.class);
+                intent.putExtra("tag", tag);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initMark(View v) {
+        listviewMark = (ListView) v.findViewById(R.id.listview_mark);
+        DataManager manager = new DataManager(getContext());
+        SharedPreferences sp = getActivity().getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
+        String userId = sp.getString("userId", "");
+        Cursor cursor = manager.getMarkedActivity(userId);
+        listviewMark.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+        listviewMark.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Activity activity = (Activity) view.getTag(R.id.activity);
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CheckActivityInfoActivity.class);
+                intent.putExtra("activity", activity);
+                startActivity(intent);
+            }
+        });
     }
 
     PagerAdapter pagerAdapter = new PagerAdapter() {

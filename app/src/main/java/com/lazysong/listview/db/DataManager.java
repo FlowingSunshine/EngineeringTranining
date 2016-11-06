@@ -186,9 +186,62 @@ public class DataManager {
         return true;
     }
 
-    private final String SELECT_USER ="SELECT * FROM USER WHERE USER_ID = ?";
+    private final String SELECT_USER = "SELECT * FROM USER WHERE USER_ID = ?";
     public Cursor getUserCursor(String userId) {
         Cursor cursor = database.rawQuery(SELECT_USER, new String[]{userId});
         return cursor;
     }
+
+    private final String SELECT_POPULAR =
+            "SELECT ACTIVITY.ROWID AS _id, * FROM ACTIVITY, TAG, INSTITUTE " +
+            "WHERE ACTIVITY.HOLD_INSTITUTE = INSTITUTE.INSTITUTE_NO " +
+            "AND ACTIVITY.MAIN_TAG = TAG.TAG_NO ORDER BY ACTIVITY.MARK_COUNT LIMIT 0,20;";
+    public Cursor getPopularActivity() {
+        Cursor cursor = database.rawQuery(SELECT_POPULAR, new String[]{});
+        return cursor;
+    }
+
+    private final String SELEC_ALL_INSTITUTE = "SELECT ROWID AS _id, * FROM INSTITUTE;";
+    public Cursor getAllInstitute() {
+        Cursor cursor = database.rawQuery(SELEC_ALL_INSTITUTE, new String[]{});
+        return cursor;
+    }
+
+    private final String SELECT_ACTIVITY_BY_INSTITUTE =
+            "SELECT ACTIVITY.ROWID AS _id, * FROM ACTIVITY, TAG, INSTITUTE " +
+                    "WHERE ACTIVITY.HOLD_INSTITUTE = ? AND " +
+                    "ACTIVITY.HOLD_INSTITUTE = INSTITUTE.INSTITUTE_NO " +
+                    "AND ACTIVITY.MAIN_TAG = TAG.TAG_NO;";
+    public Cursor getActivityByInstitute(int instituteNo) {
+        Cursor cursor = database.rawQuery(SELECT_ACTIVITY_BY_INSTITUTE, new String[]{instituteNo + ""});
+        return cursor;
+    }
+
+    private final String SELECT_ALL_TAGS = "SELECT ROWID AS _id, * FROM TAG;";
+    public Cursor getAllTags() {
+        Cursor cursor = database.rawQuery(SELECT_ALL_TAGS, new String[]{});
+        return cursor;
+    }
+
+    private final String SELECT_ACTIVITY_BY_TAG =
+            "SELECT ACTIVITY.ROWID AS _id, * FROM ACTIVITY, TAG, INSTITUTE " +
+                    "WHERE ACTIVITY.MAIN_TAG = ? AND " +
+                    "ACTIVITY.HOLD_INSTITUTE = INSTITUTE.INSTITUTE_NO " +
+                    "AND ACTIVITY.MAIN_TAG = TAG.TAG_NO;";
+    public Cursor getActivityByTag(int tagNo) {
+        Cursor cursor = database.rawQuery(SELECT_ACTIVITY_BY_TAG, new String[]{tagNo + ""});
+        return cursor;
+    }
+
+    private final String SELECT_MARKED_ACTIVITY =
+            "SELECT ACTIVITY.ROWID AS _id, * FROM ACTIVITY, TAG, INSTITUTE, MARK " +
+                    "WHERE MARK.USER_ID = ? " +
+                    "AND MARK.ACTIVITY_NO = ACTIVITY.ACTIVITY_ID " +
+                    "AND ACTIVITY.HOLD_INSTITUTE = INSTITUTE.INSTITUTE_NO " +
+                    "AND ACTIVITY.MAIN_TAG = TAG.TAG_NO ";
+    public Cursor getMarkedActivity(String userId) {
+        Cursor cursor = database.rawQuery(SELECT_MARKED_ACTIVITY, new String[]{userId + ""});
+        return cursor;
+    }
+
 }

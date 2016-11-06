@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item type="id" name="activity"></item>
+    <item type="id" name="institute"></item>
+    <item type="id" name="tag"></item>
 </resources>
