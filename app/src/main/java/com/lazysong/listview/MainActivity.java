@@ -84,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 Fragment fragment = fragments.get(position);
-                if (fragment.isAdded()) {
+                /*if (fragment.isAdded()) {
                     ft.replace(R.id.layFrame, fragment);
-                } else {
-                    ft.add(R.id.layFrame, fragment);
-                }
+                } else*/
+                ft.replace(R.id.layFrame, fragment);
                 ft.commitAllowingStateLoss();
             }
         }
@@ -103,8 +102,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 FragmentTransaction ft = fm.beginTransaction();
                 Fragment fragment = fragments.get(position);
                 ft.remove(fragment);
+                fragment.toString();
                 ft.commitAllowingStateLoss();
-                Toast.makeText(this, "onTabUnselected() is called ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "onTabUnselected() is called, fragment " + fragment.toString(), Toast.LENGTH_SHORT).show();
             }
         }
     }

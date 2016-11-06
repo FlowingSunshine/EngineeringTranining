@@ -6,16 +6,16 @@
     android:orientation="vertical"
     tools:context="com.lazysong.listview.MainActivity">
 
-    <!--<FrameLayout
-        android:id="@+id/layFrame"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />-->
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/layFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+    <!--<RelativeLayout
+        android:id="@+id/layFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />-->
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"

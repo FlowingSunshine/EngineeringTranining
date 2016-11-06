@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dee1df"
+    tools:context="com.lazysong.listview.LaunchScreen">
+
+    <ImageView
+        android:id="@+id/launch_pic1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/launch_pic3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"/>
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/launch_pic1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="学术君"/>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="让我们共同聆听智慧的声音"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"/>
+
+</RelativeLayout>
