@@ -1,5 +1,6 @@
 package com.lazysong.listview;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +33,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         //禁用ActionBar的显示/隐藏动画
         actionBar = getSupportActionBar();
         actionBar.setShowHideAnimationEnabled(false);
-//        initDB();
+        SharedPreferences sp = getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
+        boolean installed = sp.getBoolean("installed", false);
+        if(!installed) {
+            initDB();
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean("installed", true);
+            editor.commit();
+        }
     }
 
     void initBottomNavigationBar() {

@@ -1,11 +1,19 @@
 package com.lazysong.listview.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.renderscript.Script;
 import android.widget.Toast;
+
+import com.lazysong.listview.R;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by lazysong on 2016/11/1.
@@ -143,11 +151,36 @@ public class DataManager {
     }
     private final String ADD_USER = "INSERT INTO USER(USER_ID, USER_NAME, PASSWORD) VALUES(?, ?, ?)";
     public boolean addUser(String userId, String passwd, String userName) {
+        //将图片转化为位图
+        Bitmap bitmap1= BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_person);
+
+        int size=bitmap1.getWidth()*bitmap1.getHeight()*4;
+        //创建一个字节数组输出流,流的大小为size
+        ByteArrayOutputStream baos=new ByteArrayOutputStream(size);
+        //设置位图的压缩格式，质量为100%，并放入字节数组输出流中
+        bitmap1.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        //将字节数组输出流转化为字节数组byte[]
+        byte[] imagedata1=baos.toByteArray();
+
+        //将字节数组保存到数据库中
+        ContentValues cv=new ContentValues();
+        cv.put("USER_ID", userId);
+        cv.put("USER_NAME", userName);
+        cv.put("PASSWORD", passwd);
+        cv.put("USER_IMG", imagedata1);
+
         try {
-            database.execSQL(ADD_USER, new String[]{userId, passwd, userName});
+//            database.execSQL(ADD_USER, new String[]{userId, passwd, userName});
+            database.insert("USER", null, cv);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+        //关闭字节数组输出流
+        try {
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return true;
     }
