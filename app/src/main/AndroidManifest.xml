@@ -36,8 +36,7 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".CheckActivityInfoActivity" />
         <activity
             android:name=".SysNotifyActivity"
@@ -50,6 +49,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".UserInfoActivity"></activity>
     </application>
 
 </manifest>

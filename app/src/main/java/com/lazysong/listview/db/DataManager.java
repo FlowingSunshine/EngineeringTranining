@@ -2,8 +2,10 @@ package com.lazysong.listview.db;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.renderscript.Script;
+import android.widget.Toast;
 
 /**
  * Created by lazysong on 2016/11/1.
@@ -119,6 +121,40 @@ public class DataManager {
     }
     public void closeDB() {
         database.close();
+    }
 
+    private final String MATCH_USER = "SELECT * FROM USER WHERE USER_ID = ? AND PASSWORD =?;";
+    public boolean matchUser(String userId, String passwd) {
+        Cursor cursor = database.rawQuery(MATCH_USER, new String[]{userId, passwd});
+        if(cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+            return false;
+    }
+    private final String USER_EXISTS = "SELECT * FROM USER WHERE USER_ID = ?;";
+    public boolean userExists(String userId) {
+        Cursor cursor = database.rawQuery(USER_EXISTS, new String[]{userId});
+        if(cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        return false;
+    }
+    private final String ADD_USER = "INSERT INTO USER(USER_ID, USER_NAME, PASSWORD) VALUES(?, ?, ?)";
+    public boolean addUser(String userId, String passwd, String userName) {
+        try {
+            database.execSQL(ADD_USER, new String[]{userId, passwd, userName});
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private final String SELECT_USER ="SELECT * FROM USER WHERE USER_ID = ?";
+    public Cursor getUserCursor(String userId) {
+        Cursor cursor = database.rawQuery(SELECT_USER, new String[]{userId});
+        return cursor;
     }
 }

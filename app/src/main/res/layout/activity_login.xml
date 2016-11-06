@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lazysong.listview.LoginActivity">
+
+    <TextView
+        android:id="@+id/ic_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="学术君"
+        android:textSize="52sp"
+        android:textColor="@color/colorPrimary"/>
+
+    <EditText
+        android:id="@+id/ed_userid"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:hint="用户ID"
+        android:layout_below="@id/ic_login"/>
+
+    <EditText
+        android:id="@+id/ed_passwd"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:hint="用户密码"
+        android:layout_below="@id/ed_userid"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ed_passwd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="登陆"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="没有学术君账户？立即注册"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_login"
+        android:layout_marginTop="28dp"/>
+
+</RelativeLayout>

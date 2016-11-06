@@ -84,14 +84,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 Fragment fragment = fragments.get(position);
-                /*if (fragment.isAdded()) {
-                    ft.replace(R.id.layFrame, fragment);
-                } else*/
                 ft.replace(R.id.layFrame, fragment);
                 ft.commitAllowingStateLoss();
             }
         }
-
     }
 
     @Override
