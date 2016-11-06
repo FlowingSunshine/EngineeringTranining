@@ -30,8 +30,9 @@ public class User implements Serializable{
     private Bitmap userImg;
     private String phone;
     private String email;
+    private String description;
 
-    public User(String userID, String userName, int sex, String password, Bitmap userImg, String phone, String email) {
+    public User(String userID, String userName, int sex, String password, Bitmap userImg, String phone, String email, String description) {
         this.userID = userID;
         this.userName = userName;
         this.sex = sex;
@@ -39,6 +40,7 @@ public class User implements Serializable{
         this.userImg = userImg;
         this.phone = phone;
         this.email = email;
+        this.description = description;
     }
 
     public User() {
@@ -99,5 +101,13 @@ public class User implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

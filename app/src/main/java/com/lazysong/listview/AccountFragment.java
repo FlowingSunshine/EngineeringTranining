@@ -1,6 +1,9 @@
 package com.lazysong.listview;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,12 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lazysong.listview.bean.User;
+import com.lazysong.listview.db.DataManager;
+
 public class AccountFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout layoutUserInfo;
+    private ImageView userImg;
+    private TextView tvUserName;
+    private TextView tvDescription;
+    private User user;
+    private String userId;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,8 +39,38 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         initActionBar();
+        userImg = (ImageView) getActivity().findViewById(R.id.usr_img);
+        tvUserName = (TextView) getActivity().findViewById(R.id.tv_user_name);
+        tvDescription = (TextView) getActivity().findViewById(R.id.tv_description);
+        loadUserInfo();
+        updateView();
         layoutUserInfo = (RelativeLayout) getActivity().findViewById(R.id.layout_usr_info);
         layoutUserInfo.setOnClickListener(this);
+    }
+
+    private void loadUserInfo() {
+        SharedPreferences sp = getActivity().getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
+        userId = sp.getString("userId", "");
+        DataManager manager = new DataManager(getContext());
+        Cursor cursor = manager.getUserCursor(userId);
+        cursor.moveToNext();
+//        Toast.makeText(this, "loadUserInfo " + cursor.getString(cursor.getColumnIndex("USER_ID")), Toast.LENGTH_SHORT).show();
+        user = new User();
+        user.setUserID(cursor.getString(cursor.getColumnIndex("USER_ID")));
+        user.setUserName(cursor.getString(cursor.getColumnIndex("USER_NAME")));
+        user.setPassword(cursor.getString(cursor.getColumnIndex("PASSWORD")));
+        user.setSex(cursor.getInt(cursor.getColumnIndex("SEX")));
+        user.setPhone(cursor.getString(cursor.getColumnIndex("PHONE")));
+        user.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
+        byte[] array = cursor.getBlob(cursor.getColumnIndex("USER_IMG"));
+        user.setUserImg(BitmapFactory.decodeByteArray(array, 0, array.length, null));
+        user.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
+    }
+
+    private void updateView() {
+        userImg.setImageBitmap(user.getUserImg());
+        tvUserName.setText(user.getUserName());
+        tvDescription.setText(user.getDescription());
     }
 
     private void initActionBar() {

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -23,10 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverFragment extends Fragment implements View.OnClickListener{
-    ViewPager viewPager;
-    List<View> viewContainer = new ArrayList<View>();
-    String[] tableTitles = new String[]{"热门", "高校", "类型", "收藏"};
-    TabLayout mTabLayout;
+    private ViewPager viewPager;
+    private List<View> viewContainer = new ArrayList<View>();
+    private String[] tableTitles = new String[]{"热门", "高校", "类型", "收藏"};
+    private TabLayout mTabLayout;
+    private ListView listviewPopular;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
  
         LayoutInflater layoutInflater = getLayoutInflater(null);
         View v0 = layoutInflater.inflate(R.layout.layout_popular, null);
+        initPopular(v0);
         View v1 = layoutInflater.inflate(R.layout.layout_type, null);
         View v2 = layoutInflater.inflate(R.layout.layout_university, null);
         View v3 = layoutInflater.inflate(R.layout.layout_mark, null);
@@ -48,6 +52,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         viewPager.setAdapter(pagerAdapter);
 
         return view;
+    }
+
+    private void initPopular(View v) {
+        listviewPopular = (ListView) v.findViewById(R.id.listview_popular);
+        
     }
 
     PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -92,13 +101,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         final android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setShowHideAnimationEnabled(false);
         actionBar.hide();
-/*        actionBar.setCustomView(R.layout.actionbar_discover);
-        actionBar.getCustomView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "btn_home is clicked", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         mTabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
         mTabLayout.addTab(mTabLayout.newTab().setText("0"), true);

@@ -152,7 +152,7 @@ public class DataManager {
     private final String ADD_USER = "INSERT INTO USER(USER_ID, USER_NAME, PASSWORD) VALUES(?, ?, ?)";
     public boolean addUser(String userId, String passwd, String userName) {
         //将图片转化为位图
-        Bitmap bitmap1= BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_person);
+        Bitmap bitmap1= BitmapFactory.decodeResource(context.getResources(), R.drawable.img_head);
 
         int size=bitmap1.getWidth()*bitmap1.getHeight()*4;
         //创建一个字节数组输出流,流的大小为size
@@ -168,6 +168,7 @@ public class DataManager {
         cv.put("USER_NAME", userName);
         cv.put("PASSWORD", passwd);
         cv.put("USER_IMG", imagedata1);
+        cv.put("DESCRIPTION", "如果你无法简洁的表达你的想法，那只说明你还不够了解它。");
 
         try {
 //            database.execSQL(ADD_USER, new String[]{userId, passwd, userName});

@@ -29,6 +29,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private ImageView userinfoImg;
     private TextView userinfoUserame;
     private TextView userinfoOther;
+    private TextView userinfoDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         userinfoUserame = (TextView) findViewById(R.id.userinfo_username);
         userinfoOther = (TextView) findViewById(R.id.userinfo_other);
         btnLogout = (TextView) findViewById(R.id.btn_logout);
+        userinfoDescription = (TextView) findViewById(R.id.userinfo_description);
         btnLogout.setOnClickListener(this);
 
         loadUserInfo();
@@ -61,6 +63,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         user.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
         byte[] array = cursor.getBlob(cursor.getColumnIndex("USER_IMG"));
         user.setUserImg(BitmapFactory.decodeByteArray(array, 0, array.length, null));
+        user.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
         //将字节数组转化为位图
 
         cursor.close();
@@ -69,6 +72,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private void loadView() {
 //        userinfoImg.setBackground();
         userinfoUserame.setText(user.getUserName());
+        userinfoDescription.setText(user.getDescription());
         userinfoImg.setImageBitmap(user.getUserImg());
         String infoOther = "";
         infoOther += "用户ID：" + user.getUserID();
