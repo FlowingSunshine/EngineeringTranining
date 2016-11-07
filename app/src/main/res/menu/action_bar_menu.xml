@@ -2,12 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/mark"
+        android:title="收藏活动"
+        android:icon="@drawable/ic_unmarked"
+        app:showAsAction="always"></item>
+    <item
         android:id="@+id/hide"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="隐藏活动"
-        app:showAsAction="never"></item>
-    <item
-        android:id="@+id/mark"
-        android:title="收藏活动"
         app:showAsAction="never"></item>
 </menu>

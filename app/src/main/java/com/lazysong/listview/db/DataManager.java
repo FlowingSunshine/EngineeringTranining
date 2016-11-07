@@ -128,7 +128,8 @@ public class DataManager {
         return  cursor;
     }
     public void closeDB() {
-        database.close();
+        if(database != null && database.isOpen())
+            database.close();
     }
 
     private final String MATCH_USER = "SELECT * FROM USER WHERE USER_ID = ? AND PASSWORD =?;";
@@ -244,4 +245,30 @@ public class DataManager {
         return cursor;
     }
 
+    private final String GET_MARK_STATUS = "SELECT * FROM ACTIVITY, MARK, USER " +
+            "WHERE ACTIVITY.ACTIVITY_ID = MARK.ACTIVITY_NO " +
+            "AND USER.USER_ID = MARK.USER_ID " +
+            "AND USER.USER_ID =? " +
+            "AND ACTIVITY_ID = ?;";
+    public boolean activityIsMarked(String userId, int activityId) {
+        Cursor cursor = database.rawQuery(GET_MARK_STATUS, new String[]{userId, activityId + ""});
+        if(cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        return false;
+    }
+
+    private final String UNMARK_ACTIVITY = "DELETE FROM MARK " +
+            "WHERE MARK.USER_ID = ? " +
+            "AND MARK.ACTIVITY_NO = ?;";
+    public void unmarkActivity(String userId, int activityId) {
+        database.execSQL(UNMARK_ACTIVITY, new String[]{userId, activityId + ""});
+    }
+
+    private final String MARK_ACTIVITY = "INSERT INTO MARK " +
+            "VALUES (?, ?);";
+    public void markActivity(String userId, int activityId) {
+        database.execSQL(MARK_ACTIVITY, new String[]{userId, activityId + ""});
+    }
 }

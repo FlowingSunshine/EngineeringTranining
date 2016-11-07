@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lazysong.listview.R;
 import com.lazysong.listview.bean.Activity;
@@ -73,13 +74,6 @@ public class MyCursorAdapter extends CursorAdapter {
         institute.setInstituteType(cursor.getInt(cursor.getColumnIndex("INSTITUTE_TYPE")));
 //        institute.setImg(BitmapFactory.decodeByteArray(image, 0, image.length, null));
         institute.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
-        /*institute = new Institute(
-                cursor.getInt(cursor.getColumnIndex("INSTITUTE_NO")),
-                cursor.getString(cursor.getColumnIndex("INSTITUTE_NAME")),
-                cursor.getInt(cursor.getColumnIndex("INSTITUTE_TYPE")),
-                BitmapFactory.decodeByteArray(image, 0, image.length, null),
-                cursor.getString(cursor.getColumnIndex("DESCRIPTION"))
-        );*/
         activity.setMainTag(tag);
         activity.setHoldInstitute(institute);
         /*更新list_item界面*/
@@ -112,5 +106,11 @@ public class MyCursorAdapter extends CursorAdapter {
         public TextView place;
         public TextView hold_institute;
         public TextView markCount;
+    }
+
+    @Override
+    protected void onContentChanged() {
+        super.onContentChanged();
+        Toast.makeText(mContext, "onContentChanged() is called", Toast.LENGTH_SHORT).show();
     }
 }

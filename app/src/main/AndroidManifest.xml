@@ -53,7 +53,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".CheckActivityByInstitute" />
-        <activity android:name=".CheckActivityByTag"></activity>
+        <activity android:name=".CheckActivityByTag" />
+        <activity android:name=".InstituteInfoActivity"></activity>
     </application>
 
 </manifest>

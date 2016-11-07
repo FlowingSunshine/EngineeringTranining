@@ -144,5 +144,6 @@ public class HomeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mLocationClient.stop();
+        dataManager.closeDB();
     }
 }

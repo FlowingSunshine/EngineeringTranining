@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String CREATE_TABLE_ACTIVITY_TAG = "CREATE TABLE ACTIVITY_TAG(\n" +
             "ACTIVITY_NO INTEGER, TAG_NO INTEGER, " +
             "PRIMARY KEY (ACTIVITY_NO, TAG_NO), " +
-            "FOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_NO), " +
+            "FOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_ID), " +
             "FOREIGN KEY (TAG_NO) REFERENCES TAG(TAG_NO)" +
             ");";
 
@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tUSER_ID INTEGER, ACTIVITY_NO INTEGER, \n" +
             "\tPRIMARY KEY (USER_ID, ACTIVITY_NO),\n" +
             "\tFOREIGN KEY (USER_ID) REFERENCES USER(USER_ID), \n" +
-            "\tFOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_NO)\n" +
+            "\tFOREIGN KEY (ACTIVITY_NO) REFERENCES ACTIVITY(ACTIVITY_ID)\n" +
             ");";
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

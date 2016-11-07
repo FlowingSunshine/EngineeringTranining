@@ -1,9 +1,13 @@
 package com.lazysong.listview;
 
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -43,6 +47,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
     private ListView listviewInstitute;
     private ListView listviewType;
     private ListView listviewMark;
+    private View v0;
+    private View v1;
+    private View v2;
+    private View v3;
+    private DataManager manager;
+    private String userId;
+    private Context context;
 
     @Nullable
     @Override
@@ -50,30 +61,30 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         setHasOptionsMenu(true);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_discover);
- 
+
+        manager = new DataManager(getContext());
+        context = getContext();
         LayoutInflater layoutInflater = getLayoutInflater(null);
-        View v0 = layoutInflater.inflate(R.layout.layout_popular, null);
-        initPopularTab(v0);
-        View v1 = layoutInflater.inflate(R.layout.layout_university, null);
-        initInstituteTab(v1);
-        View v2 = layoutInflater.inflate(R.layout.layout_type, null);
-        initTypeTab(v2);
-        View v3 = layoutInflater.inflate(R.layout.layout_mark, null);
-        initMark(v3);
+        v0 = layoutInflater.inflate(R.layout.layout_popular, null);
+        v1 = layoutInflater.inflate(R.layout.layout_university, null);
+        v2 = layoutInflater.inflate(R.layout.layout_type, null);
+        v3 = layoutInflater.inflate(R.layout.layout_mark, null);
         if(viewContainer.isEmpty()) {
             viewContainer.add(0, v0);
             viewContainer.add(1, v1);
             viewContainer.add(2, v2);
             viewContainer.add(3, v3);
         }
+//        initPopularTab(v0);
+//        initInstituteTab(v1);
+//        initTypeTab(v2);
+//        initMark(v3);
         viewPager.setAdapter(pagerAdapter);
-
         return view;
     }
 
     private void initPopularTab(View v) {
         listviewPopular = (ListView) v.findViewById(R.id.listview_popular);
-        DataManager manager = new DataManager(getContext());
         Cursor cursor = manager.getPopularActivity();
         listviewPopular.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
         listviewPopular.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,7 +101,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
 
     private void initInstituteTab(View v) {
         listviewInstitute = (ListView) v.findViewById(R.id.listview_university);
-        DataManager manager = new DataManager(getContext());
         Cursor cursor = manager.getAllInstitute();
         listviewInstitute.setAdapter(new InstituteCusroAdapter(getContext(), cursor, true));
         listviewInstitute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,7 +117,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
 
     private void initTypeTab(View v) {
         listviewType = (ListView) v.findViewById(R.id.listview_type);
-        DataManager manager = new DataManager(getContext());
         Cursor cursor = manager.getAllTags();
         listviewType.setAdapter(new TagCursorAdapter(getContext(), cursor, true));
         listviewType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,11 +133,19 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
 
     private void initMark(View v) {
         listviewMark = (ListView) v.findViewById(R.id.listview_mark);
-        DataManager manager = new DataManager(getContext());
         SharedPreferences sp = getActivity().getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
-        String userId = sp.getString("userId", "");
+        userId = sp.getString("userId", "");
         Cursor cursor = manager.getMarkedActivity(userId);
-        listviewMark.setAdapter(new MyCursorAdapter(getContext(), cursor, true));
+        MyCursorAdapter adapter = new MyCursorAdapter(getContext(), cursor, true);
+        /*adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                cursor.requery();
+                Toast.makeText(getContext(), "onChanged() is called", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        listviewMark.setAdapter(adapter);
         listviewMark.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -139,6 +156,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
             }
         });
+    }
+
+    private void updateMark() {
+        Cursor cursor = manager.getMarkedActivity(userId);
+        MyCursorAdapter adapter = new MyCursorAdapter(getContext(), cursor, true);
     }
 
     PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -230,12 +252,18 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-   /* @Override
-   //创建OptionMenu
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        MenuInflater menuInflater = getActivity().getMenuInflater();
-        menuInflater.inflate(R.menu.menu_discover, menu);
-        return;
-    }*/
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        manager.closeDB();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initPopularTab(v0);
+        initInstituteTab(v1);
+        initTypeTab(v2);
+        initMark(v3);
+    }
 }

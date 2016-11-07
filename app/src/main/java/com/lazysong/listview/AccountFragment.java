@@ -26,11 +26,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private TextView tvDescription;
     private User user;
     private String userId;
+    private DataManager manager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_logined, container, false);
+        manager = new DataManager(getContext());
         return view;
     }
 
@@ -51,7 +53,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private void loadUserInfo() {
         SharedPreferences sp = getActivity().getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
         userId = sp.getString("userId", "");
-        DataManager manager = new DataManager(getContext());
         Cursor cursor = manager.getUserCursor(userId);
         cursor.moveToNext();
 //        Toast.makeText(this, "loadUserInfo " + cursor.getString(cursor.getColumnIndex("USER_ID")), Toast.LENGTH_SHORT).show();
@@ -98,5 +99,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 intent.setClass(getContext(),UserInfoActivity.class);
                 startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        manager.closeDB();
     }
 }
