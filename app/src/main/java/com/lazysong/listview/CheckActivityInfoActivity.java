@@ -109,7 +109,7 @@ public class CheckActivityInfoActivity extends AppCompatActivity {
         }
         return true;
     }
- 
+
     private void doHide(MenuItem item) {
         Toast.makeText(this, "隐藏成功", Toast.LENGTH_SHORT).show();
     }

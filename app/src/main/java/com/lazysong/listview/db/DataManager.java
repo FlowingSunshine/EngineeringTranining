@@ -271,4 +271,32 @@ public class DataManager {
     public void markActivity(String userId, int activityId) {
         database.execSQL(MARK_ACTIVITY, new String[]{userId, activityId + ""});
     }
+
+    private final String UPDATE_USER = "UPDATE USER SET " +
+            "USER_NAME = ? AND SEX = ? AND USER_IMG = ? " +
+            "AND PHONE = ? AND EMAIL = ? AND DESCRIPTION = ? " +
+            "WHERE USER_ID = ?;";
+    public void updateUser(String userId, String userName, Bitmap userImg, String phone, String email, String description) {
+        byte[] array = null;
+        if(userImg != null) {
+            int size = userImg.getWidth() * userImg.getHeight() * 4;
+            //创建一个字节数组输出流,流的大小为size
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(size);
+            //设置位图的压缩格式，质量为100%，并放入字节数组输出流中
+            userImg.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            //将字节数组输出流转化为字节数组byte[]
+            array = baos.toByteArray();
+        }
+        //将字节数组保存到数据库中
+        ContentValues cv=new ContentValues();
+//        cv.put("USER_ID", userId);
+        cv.put("USER_NAME", userName);
+        if(array != null)
+            cv.put("USER_IMG", array);
+        cv.put("PHONE", phone);
+        cv.put("EMAIL", email);
+        cv.put("DESCRIPTION", description);
+
+        database.update("USER", cv, "USER_ID = ?", new String[]{userId});
+    }
 }

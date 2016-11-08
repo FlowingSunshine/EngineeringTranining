@@ -36,7 +36,9 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".CheckActivityInfoActivity" />
         <activity
             android:name=".SysNotifyActivity"
@@ -54,7 +56,8 @@
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".CheckActivityByInstitute" />
         <activity android:name=".CheckActivityByTag" />
-        <activity android:name=".InstituteInfoActivity"></activity>
+        <activity android:name=".InstituteInfoActivity" />
+        <activity android:name=".EditAccountActivity"></activity>
     </application>
 
 </manifest>

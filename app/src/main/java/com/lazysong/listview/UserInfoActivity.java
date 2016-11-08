@@ -6,9 +6,13 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +34,11 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private TextView userinfoUserame;
     private TextView userinfoOther;
     private TextView userinfoDescription;
+    private ImageView close;
+    private TextView tvTitle;
+
+    private byte[]array;
+    private DataManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +51,28 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         btnLogout = (TextView) findViewById(R.id.btn_logout);
         userinfoDescription = (TextView) findViewById(R.id.userinfo_description);
         btnLogout.setOnClickListener(this);
+        initActionBar();
+    }
 
-        loadUserInfo();
-        loadView();
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.actionbar_activity_info);
+        close = (ImageView) actionBar.getCustomView().findViewById(R.id.close_activity_info);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tvTitle = (TextView) findViewById(R.id.title_actionbar);
+        tvTitle.setText("账户信息");
     }
 
     private void loadUserInfo() {
         SharedPreferences sp = getSharedPreferences("loginpref", android.app.Activity.MODE_PRIVATE);
         userId = sp.getString("userId", "");
-        DataManager manager = new DataManager(this);
+        manager = new DataManager(this);
         Cursor cursor = manager.getUserCursor(userId);
         cursor.moveToNext();
 //        Toast.makeText(this, "loadUserInfo " + cursor.getString(cursor.getColumnIndex("USER_ID")), Toast.LENGTH_SHORT).show();
@@ -61,7 +83,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         user.setSex(cursor.getInt(cursor.getColumnIndex("SEX")));
         user.setPhone(cursor.getString(cursor.getColumnIndex("PHONE")));
         user.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
-        byte[] array = cursor.getBlob(cursor.getColumnIndex("USER_IMG"));
+        array = cursor.getBlob(cursor.getColumnIndex("USER_IMG"));
         user.setUserImg(BitmapFactory.decodeByteArray(array, 0, array.length, null));
         user.setDescription(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
         //将字节数组转化为位图
@@ -98,5 +120,39 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_account, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_item_edit:
+                Intent intent = new Intent();
+                intent.setClass(this, EditAccountActivity.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        manager.closeDB();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadUserInfo();
+        loadView();
     }
 }
